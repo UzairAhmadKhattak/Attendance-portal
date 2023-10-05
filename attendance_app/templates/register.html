@@ -1,0 +1,37 @@
+{% extends "login.html" %}
+
+{% block content %}
+
+<form action="register" method="post">
+  {% csrf_token %}
+ 
+<div class="login_page">
+  <h1>Registeration</h1> 
+  <h3><a style="position: fixed;top: 30px; right: 60px; font-weight: bold;" href="login">Login</a></h3>
+  <div class="form" style="margin-top: 20px;">  
+    <div class="mb-3">
+      <label for="user_name" class="form-label"><h5>User Name</h5></label>
+      <input type="text" name="user_name" placeholder="User Name" class="form-control" id="user_name" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label"><h5>Email</h5></label>
+      <input type="email" name="email" placeholder="Email" class="form-control" id="email" required>
+    </div>
+    
+    <div class="mb-3">
+      <label for="password1" class="form-label"><h5>Password</h5></label>
+      <input type="password" name="password1" placeholder="Password" class="form-control" id="password1" required>
+    </div>
+  
+
+    <div class="mb-3">
+      <label for="password2" class="form-label"><h5>ReEnter Password</h5></label>
+      <input type="password" name="password2" placeholder="ReEnter Password" class="form-control" id="password2" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div> 
+</form>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{%load my_custem_tags%}
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="backgroundimgae">
+  
+  <div id = "main" style="padding-top: 20px;">
+  
+    <div class="userinfo" style="background-color: #d1feee;margin-left: 100px; margin-right: 100px; border-radius: 10px; padding-left:10px; padding-top: 10px;">
+        
+        <div class="table_text" style="padding-top: 10px; ">
+            <h5>Teacher Information</h5> 
+        
+        <table class="table table-borderless">
+
+            <tbody>
+              <tr>
+                <td>Teacher name</td>
+                <td>{{teacher_info.0}}</td>
+              </tr>
+              <tr>
+                <td>Position</td>
+                <td>{{teacher_info.2}}</td>
+              </tr>
+              <tr>
+                <td>Email address</td>
+                <td>{{teacher_info.1}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+     </div>
+    
+    <div class="attendance_info" style="margin-left: 100px; margin-right: 100px;padding-left:10px; padding-top: 10px;">
+        <h5>Marked Attendances</h5>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total students</th>
+            <th scope="col">Present</th>
+            <th scope="col">Absent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- loop for total attendance that are alreadty marked -->
+         {% with inc_num=0 %}
+          {% for marked_days in attendance_result %}
+          
+         {% increment inc_num as inc_num %}
+
+         <tr id="attendance_result" style="font-size: 20px;color:rgb(0, 0, 0);"> 
+            <th scope="row">{{inc_num}}</th>
+            <td >{{marked_days.0}}</td>
+            <td>{{marked_days.1}}</td>
+            <td>{{marked_days.2}}</td>
+            <td>{{marked_days.3}}</td>
+            <td><button type="button" {{ marked_days.4 }} class="btn btn-info" onclick="parent.location='today_attendance/edit'">Edit</button></td>
+          </tr>
+          {%endfor%}
+          {% endwith %}
+          <!-- end loop -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+      {% endblock %}
+

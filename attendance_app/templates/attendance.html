@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+{%load my_custem_tags%}
+<style>
+
+  #please_add{
+    background-color: #f8a499;
+
+  }
+
+</style>
+
+
+<div class="attendance_info" style="margin-left: 10%; margin-right: 10%;padding-left:10px; padding-top: 10px;">
+    <form action="{% url 'submit' %}" method = "post">
+        {%csrf_token%}
+        <h5 style="text-align:left;">
+          Students Attendances 
+          <span style="float:right; padding-right:100px;">Date: {{today_date}}</span>
+        </h5>
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Father Name</th>
+            <th scope="col">CNIC</th>
+            <th scope="col">Present</th>
+            <th scope="col">Absent</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+         
+          <!-- loop for total attendance that are alreadty marked -->
+        
+        {% return_name_list radio_error_index as name_list%}
+        {% zipp student_data status_list previse_attendace as three_lists%}
+        
+        {% for s_data,status,submitted_attendace_status in three_lists %}
+        {% if s_data.student_name in name_list %}
+  
+        <tr id = "{{radio_error}}">
+        {% else %}
+        <tr>
+        {% endif %}
+            <th scope="row">{{s_data.id}}</th>
+            <td>{{s_data.student_name}}</td>
+            <td>{{s_data.student_father_name}}</td>
+            <td>{{s_data.student_cnic}}</td>
+            <td><input type="radio" {% if status == "Present" or submitted_attendace_status == "Present" %} checked {%endif%} name="{{s_data.student_name}}" value="Present" class="form-check-input"></td>
+            <td><input type="radio" {% if status == "Absent"  or submitted_attendace_status == "Absent" %} checked {%endif%} name="{{s_data.student_name}}" value="Absent" class="form-check-input"></td>
+            
+        </tr>
+          {%endfor%}
+        <!-- end loop -->
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+</div>
+
+<script>
+  document.getElementById("form1").style.display = "none"
+</script>
+{% endblock %}
